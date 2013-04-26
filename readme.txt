@@ -39,9 +39,6 @@ http://mini_class.piscdong.com/
 　　修改Flickr读取数据方法
 　　升级方法：先把数据库升级程序（update121212.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update121212.php 升级数据库，再用新程序替换原有程序
 
-更多升级历史请访问：http://www.piscdong.com/mini_class/?m=log
-如有意见或建议请访问：http://www.piscdong.com/mini_class/?m=guestbook
-开发和计划中的新功能请查看开发实验室先睹为快：http://www.piscdong.com/mini_class/?m=lab
 
 (c)PiscDong studio
 http://www.piscdong.com/
