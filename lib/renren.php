@@ -6,13 +6,14 @@
  */
 class renrenPHP
 {
-	function __construct($client_id, $client_secret, $access_token=NULL){
+	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
 		$this->access_token=$access_token;
 	}
 
-	function login_url($callback_url, $scope){
+	//生成授权网址
+	public function login_url($callback_url, $scope=''){
 		$params=array(
 			'response_type'=>'code',
 			'client_id'=>$this->client_id,
@@ -22,7 +23,8 @@ class renrenPHP
 		return 'https://graph.renren.com/oauth/authorize?'.http_build_query($params);
 	}
 
-	function access_token($callback_url, $code){
+	//获取access token
+	public function access_token($callback_url, $code){
 		$params=array(
 			'grant_type'=>'authorization_code',
 			'code'=>$code,
@@ -34,7 +36,8 @@ class renrenPHP
 		return $this->http($url, http_build_query($params), 'POST');
 	}
 
-	function access_token_refresh($refresh_token){
+	//使用refresh token获取新的access token
+	public function access_token_refresh($refresh_token){
 		$params=array(
 			'grant_type'=>'refresh_token',
 			'refresh_token'=>$refresh_token,
@@ -45,19 +48,22 @@ class renrenPHP
 		return $this->http($url, http_build_query($params), 'POST');
 	}
 
-	function me(){
+	//获取登录用户信息
+	public function me(){
 		$params=array();
 		return $this->api('users.getInfo', $params, 'POST');
 	}
 
-	function setStatus($status){
+	//更新状态
+	public function setStatus($status){
 		$params=array(
 			'status'=>$status
 		);
 		return $this->api('status.set', $params, 'POST');
 	}
 
-	function getStatus($uid, $count=10, $page=1){
+	//获取用户的状态列表
+	public function getStatus($uid, $count=10, $page=1){
 		$params=array(
 			'uid'=>$uid,
 			'page'=>$page,
@@ -66,7 +72,8 @@ class renrenPHP
 		return $this->api('status.gets', $params, 'POST');
 	}
 
-	function addBlog($title, $content){
+	//发表一篇日志
+	public function addBlog($title, $content){
 		$params=array(
 			'title'=>$title,
 			'content'=>$content
@@ -74,7 +81,8 @@ class renrenPHP
 		return $this->api('blog.addBlog', $params, 'POST');
 	}
 
-	function getBlog($id, $uid){
+	//获取日志的全部信息
+	public function getBlog($id, $uid){
 		$params=array(
 			'id'=>$id,
 			'uid'=>$uid
@@ -82,7 +90,8 @@ class renrenPHP
 		return $this->api('blog.get', $params, 'POST');
 	}
 
-	function getComments($id, $uid, $count=10, $page=1){
+	//获取一篇日志的评论
+	public function getComments($id, $uid, $count=10, $page=1){
 		$params=array(
 			'id'=>$id,
 			'uid'=>$uid,
@@ -92,7 +101,8 @@ class renrenPHP
 		return $this->api('blog.getComments', $params, 'POST');
 	}
 
-	function api($method_name, $params, $method='GET'){
+	//调用接口
+	public function api($method_name, $params, $method='GET'){
 		$params['method']=$method_name;
 		$params['v']='1.0';
 		$params['access_token']=$this->access_token;
@@ -112,8 +122,8 @@ class renrenPHP
 		return $result;
 	}
 
-	function http($url, $postfields='', $method='GET', $headers=array()){
-		$json_r=array();
+	//提交请求
+	private function http($url, $postfields='', $method='GET', $headers=array()){
 		$ci=curl_init();
 		curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE); 
 		curl_setopt($ci, CURLOPT_RETURNTRANSFER, 1);
@@ -128,6 +138,7 @@ class renrenPHP
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);
 		curl_close($ci);
+		$json_r=array();
 		if($response!='')$json_r=json_decode($response, true);
 		return $json_r;
 	}

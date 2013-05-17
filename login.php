@@ -513,7 +513,7 @@ if(!$c_log){
 			}
 			if(!isset($_SESSION['douban_login_u_t']) || $_SESSION['douban_login_u_t']==''){
 				$db_o=new doubanPHP($config['douban_key'], $config['douban_se']);
-				$aurl=$db_o->login_url($config['site_url'].'douban_callback.php');
+				$aurl=$db_o->login_url($config['site_url'].'douban_callback.php', 'douban_basic_common');
 				header('Location:'.$aurl);
 				exit();
 			}
@@ -575,7 +575,7 @@ if(!$c_log){
 			}
 			if(!isset($_SESSION['google_login_u_t']) || $_SESSION['google_login_u_t']==''){
 				$gg_o=new googlePHP($config['google_key'], $config['google_se']);
-				$aurl=$gg_o->login_url($config['site_url'].'google_callback.php');
+				$aurl=$gg_o->login_url($config['site_url'].'google_callback.php', 'https://www.googleapis.com/auth/userinfo.profile');
 				header('Location:'.$aurl);
 				exit();
 			}
@@ -637,7 +637,7 @@ if(!$c_log){
 			}
 			if(!isset($_SESSION['live_login_u_t']) || $_SESSION['live_login_u_t']==''){
 				$ms_o=new livePHP($config['live_key'], $config['live_se']);
-				$aurl=$ms_o->login_url($config['site_url'].'live_callback.php');
+				$aurl=$ms_o->login_url($config['site_url'].'live_callback.php', 'wl.basic,wl.offline_access');
 				header('Location:'.$aurl);
 				exit();
 			}
@@ -778,7 +778,7 @@ if(!$c_log){
 			require_once('lib/baidu.php');
 			if(isset($_SESSION['baidu_login_u_t']) && $_SESSION['baidu_login_u_t']!=''){
 				$bo=new baiduPHP($config['baidu_key'], $config['baidu_se'], $_SESSION['baidu_login_u_t']);
-				$ba=$bo->user();
+				$ba=$bo->me();
 				if(!isset($ba['error_code']) && isset($ba['uid']) && $ba['uid']!=''){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';

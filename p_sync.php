@@ -834,7 +834,7 @@ if($c_log && isset($r_dbu)){
 					mysql_free_result($q_dby);
 					if($is_sync==0){
 						$db_o=new doubanPHP($config['douban_key'], $config['douban_se']);
-						$aurl=$db_o->login_url($config['site_url'].'douban_callback.php');
+						$aurl=$db_o->login_url($config['site_url'].'douban_callback.php', 'douban_basic_common');
 						$content.='<a href="'.$aurl.'">点击此处和您的豆瓣账号建立连接</a>';
 					}
 					$content.='<br/><br/>绑定豆瓣账号后将实现以下功能：<ol><li>在<a href="?m=user&amp;id='.$r_dbu['id'].'">用户信息</a>页面显示豆瓣收藏秀</li><li>使用豆瓣账号登录</li><li>注：豆瓣账号不可以重复绑定，用户绑定后，其他用户绑定的同一豆瓣账号将自动解除绑定</li></ol>';
@@ -869,7 +869,7 @@ if($c_log && isset($r_dbu)){
 							$result=mysql_query($u_db) or die('');
 						}
 						$bo=new baiduPHP($config['baidu_key'], $config['baidu_se'], $r_dby['s_t']);
-						$ba=$bo->user();
+						$ba=$bo->me();
 						if(!isset($ba['error_code']) && isset($ba['uid']) && $ba['uid']!=''){
 							$is_sync=1;
 							$d_db=sprintf('delete from %s where aid<>%s and name=%s and s_id=%s', $dbprefix.'m_sync', $r_dbu['id'], SQLString($nct, 'text'), SQLString($ba['uid'], 'text'));
@@ -945,7 +945,7 @@ if($c_log && isset($r_dbu)){
 					mysql_free_result($q_dby);
 					if($is_sync==0){
 						$gg_o=new googlePHP($config['google_key'], $config['google_se']);
-						$aurl=$gg_o->login_url($config['site_url'].'google_callback.php');
+						$aurl=$gg_o->login_url($config['site_url'].'google_callback.php', 'https://www.googleapis.com/auth/userinfo.profile');
 						$content.='<a href="'.$aurl.'">点击此处和您的Google账号建立连接</a>';
 					}
 					$content.='<br/><br/>绑定Google账号后将实现以下功能：<ol><li>使用Google账号登录</li><li>注：Google账号不可以重复绑定，用户绑定后，其他用户绑定的同一Google账号将自动解除绑定</li></ol>';
@@ -1000,7 +1000,7 @@ if($c_log && isset($r_dbu)){
 					mysql_free_result($q_dby);
 					if($is_sync==0){
 						$ms_o=new livePHP($config['live_key'], $config['live_se']);
-						$aurl=$ms_o->login_url($config['site_url'].'live_callback.php');
+						$aurl=$ms_o->login_url($config['site_url'].'live_callback.php', 'wl.basic,wl.offline_access');
 						$content.='<a href="'.$aurl.'">点击此处和您的Microsoft账户建立连接</a>';
 					}
 					$content.='<br/><br/>绑定Microsoft账户后将实现以下功能：<ol><li>使用Microsoft账户登录</li><li>注：Microsoft账户不可以重复绑定，用户绑定后，其他用户绑定的同一Microsoft账户将自动解除绑定</li></ol>';

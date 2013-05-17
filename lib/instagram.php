@@ -6,13 +6,14 @@
  */
 class instagramPHP
 {
-	function __construct($client_id, $client_secret, $access_token=NULL){
+	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
 		$this->access_token=$access_token;
 	}
 
-	function authorize_url($callback_url){
+	//生成授权网址
+	public function login_url($callback_url){
 		$params=array(
 			'response_type'=>'code',
 			'client_id'=>$this->client_id,
@@ -21,7 +22,8 @@ class instagramPHP
 		return 'https://api.instagram.com/oauth/authorize/?'.http_build_query($params);
 	}
 
-	function access_token($callback_url, $code){
+	//获取access token
+	public function access_token($callback_url, $code){
 		$params=array(
 			'grant_type'=>'authorization_code',
 			'code'=>$code,
@@ -33,13 +35,21 @@ class instagramPHP
 		return $this->http($url, http_build_query($params), 'POST');
 	}
 
-	function user($id){
+	/**
+	//使用refresh token获取新的access token，Instagram暂时不支持
+	public function access_token_refresh($refresh_token){
+	}
+	**/
+
+	//根据id获取用户信息
+	public function user($id){
 		$params=array();
 		$url='https://api.instagram.com/v1/users/'.$id.'/';
 		return $this->api($url, $params);
 	}
 
-	function user_media($id, $count=10, $max_id=''){
+	//根据id获取用户图片列表
+	public function user_media($id, $count=10, $max_id=''){
 		$params=array(
 			'count'=>$count
 		);
@@ -48,7 +58,8 @@ class instagramPHP
 		return $this->api($url, $params);
 	}
 
-	function api($url, $params, $method='GET'){
+	//调用接口
+	public function api($url, $params, $method='GET'){
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -58,7 +69,8 @@ class instagramPHP
 		return $result;
 	}
 
-	function http($url, $postfields='', $method='GET', $headers=array()){
+	//提交请求
+	private function http($url, $postfields='', $method='GET', $headers=array()){
 		$ci=curl_init();
 		curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE); 
 		curl_setopt($ci, CURLOPT_RETURNTRANSFER, 1);

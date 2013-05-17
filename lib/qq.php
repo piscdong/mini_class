@@ -6,79 +6,114 @@
  */
 class qqPHP
 {
-	function __construct($client_id, $client_secret, $access_token=NULL){
-		$this->client_id=$client_id;
-		$this->client_secret=$client_secret;
+	public function __construct($appid, $appkey, $access_token=NULL){
+		$this->appid=$appid;
+		$this->appkey=$appkey;
 		$this->access_token=$access_token;
 	}
 
-	function login_url($callback_url){
-		$url='https://graph.qq.com/oauth2.0/authorize';
+	//生成授权网址
+	public function login_url($callback_url, $scope=''){
 		$params=array(
-			'client_id'=>$this->client_id,
+			'client_id'=>$this->appid,
 			'redirect_uri'=>$callback_url,
 			'response_type'=>'code',
-			'scope'=>''
+			'scope'=>$scope
 		);
-		$p_str=http_build_query($params);
-		return $url.'?'.$p_str;
+		return 'https://graph.qq.com/oauth2.0/authorize?'.http_build_query($params);
 	}
 
-	function access_token($callback_url, $code){
-		$url='https://graph.qq.com/oauth2.0/token';
+	//获取access token
+	public function access_token($callback_url, $code){
 		$params=array(
 			'grant_type'=>'authorization_code',
-			'client_id'=>$this->client_id,
-			'client_secret'=>$this->client_secret,
+			'client_id'=>$this->appid,
+			'client_secret'=>$this->appkey,
 			'code'=>$code,
 			'state'=>'',
 			'redirect_uri'=>$callback_url
 		);
-		$result_str=$this->http($url, $params);
-		$result=array();
-		if($result_str!='')parse_str($result_str, $result);
-		return $result;
+		$url='https://graph.qq.com/oauth2.0/token?'.http_build_query($params);
+		$result_str=$this->http($url);
+		$json_r=array();
+		if($result_str!='')parse_str($result_str, $json_r);
+		return $json_r;
 	}
 
-	function get_openid(){
-		$url='https://graph.qq.com/oauth2.0/me';
+	/**
+	//使用refresh token获取新的access token，QQ暂时不支持
+	public function access_token_refresh($refresh_token){
+	}
+	**/
+
+	//获取登录用户的openid
+	public function get_openid(){
 		$params=array(
 			'access_token'=>$this->access_token
 		);
-		$result_str=$this->http($url, $params);
-		$result=array();
+		$url='https://graph.qq.com/oauth2.0/me?'.http_build_query($params);
+		$result_str=$this->http($url);
+		$json_r=array();
 		if($result_str!=''){
 			preg_match('/callback\(\s+(.*?)\s+\)/i', $result_str, $result_a);
-			$result=json_decode($result_a[1], true);
+			$json_r=json_decode($result_a[1], true);
 		}
-		return $result;
+		return $json_r;
 	}
 
-	function get_user_info($openid){
-		$url='https://graph.qq.com/user/get_user_info';
+	//根据openid获取用户信息
+	public function get_user_info($openid){
 		$params=array(
-			'access_token'=>$this->access_token,
-			'oauth_consumer_key'=>$this->client_id,
-			'openid'=>$openid,
-			'format'=>'json'
+			'openid'=>$openid
 		);
-		$result_str=$this->http($url, $params);
+		$url='https://graph.qq.com/user/get_user_info';
+		return $this->api($url, $params);
+	}
+
+	//发布分享
+	public function add_share($openid, $title, $url, $site, $fromurl, $images='', $summary=''){
+		$params=array(
+			'openid'=>$openid,
+			'title'=>$title,
+			'url'=>$url,
+			'site'=>$site,
+			'fromurl'=>$fromurl,
+			'images'=>$images,
+			'summary'=>$summary
+		);
+		$url='https://graph.qq.com/share/add_share';
+		return $this->api($url, $params, 'POST');
+	}
+
+	//调用接口
+	public function api($url, $params, $method='GET'){
+		$params['access_token']=$this->access_token;
+		$params['oauth_consumer_key']=$this->appid;
+		$params['format']='json';
+		if($method=='GET'){
+			$result_str=$this->http($url.'?'.http_build_query($params));
+		}else{
+			$result_str=$this->http($url, http_build_query($params), 'POST');
+		}
 		$result=array();
 		if($result_str!='')$result=json_decode($result_str, true);
 		return $result;
 	}
 
-	function http($url, $params, $method='GET', $headers=array()){
+	//提交请求
+	private function http($url, $postfields='', $method='GET', $headers=array()){
 		$ci=curl_init();
-		if(stripos($url, 'https://')!==FALSE){
-			curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, FALSE); 
+		curl_setopt($ci, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 30);
+		curl_setopt($ci, CURLOPT_TIMEOUT, 30);
+		if($method=='POST'){
+			curl_setopt($ci, CURLOPT_POST, TRUE);
+			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$url.='?'.http_build_query($params);
 		$headers[]="User-Agent: qqPHP(piscdong.com)";
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
-		curl_setopt($ci, CURLOPT_RETURNTRANSFER, 1);
 		$response=curl_exec($ci);
 		curl_close($ci);
 		return $response;

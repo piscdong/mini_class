@@ -40,7 +40,7 @@ if($c_log){
 				if(mysql_num_rows($q_dby)>0){
 					require_once('lib/tqq.php');
 					$o=new tqqPHP($config['tqq_key'], $config['tqq_se'], $r_dby['s_t'], $r_dby['s_id']);
-					$ma=$o->getgetMyTweet(5);
+					$ma=$o->getMyTweet(5);
 					if(isset($ma['ret']) && $ma['ret']==0 && isset($ma['data']['info']) && is_array($ma['data']['info']) && count($ma['data']['info'])>0){
 						foreach($ma['data']['info'] as $v){
 							if(trim($v['text'])!='')echo '<div class="sync_list" style="background-image: url(images/i-tqq.gif);">'.trim($v['text']).'</div>';
