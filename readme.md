@@ -57,7 +57,15 @@
 >* 增加使用Google、Microsoft账号登录功能
 >* 增加使用SMTP发送邮件功能
 >* 修改Flickr读取数据方法
->* 升级方法：先把数据库升级程序（[update121212.php](https://github.com/piscdong/mini_class/tree/update)）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update121212.php 升级数据库，再用新程序替换原有程序  
+>* 升级方法：先把数据库升级程序（[update121212.php](https://github.com/piscdong/mini_class/tree/update)）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update121212.php 升级数据库，再用新程序替换原有程序
+
+相关链接
+-------------
+>* [升级程序](https://github.com/piscdong/mini_class/tree/update)
+>* [样式下载](https://github.com/piscdong/mini_class/tree/skin)
+>* [讨论区](https://github.com/piscdong/mini_class/issues)
+>* [升级日志](https://github.com/piscdong/mini_class/wiki/Log)
+>* [帮助信息](https://github.com/piscdong/mini_class/wiki/Help)
 
 开发者信息
 -------------
