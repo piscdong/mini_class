@@ -78,6 +78,11 @@ a {
 .right p {
 	line-height: 40px;
 }
+.version {
+	font-style: italic;
+	line-height: 30px;
+	margin: 0;
+}
 .right h2 {
 	font-size: 20px;
 }
