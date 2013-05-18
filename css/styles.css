@@ -1,0 +1,89 @@
+html, body, h1, h2 {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	background: #eee;
+	font-size: 15px;
+	font-family: Arial, Arial, Helvetica, sans-serif;
+}
+a {
+	color: #350;
+}
+.box {
+	margin: 40px auto;
+	width: 850px;
+}
+.left {
+	width: 195px;
+	float: left;
+	background: url(../images/logo.png) no-repeat top center;
+	padding-top: 120px;
+	overflow: hidden;
+}
+.left a {
+	display: block;
+	height: 46px;
+	line-height: 46px;
+	margin-top: 10px;
+	font-size: 21px;
+	font-style: italic;
+	padding-left: 15px;
+	text-decoration: none;
+}
+.gh_link {
+	width: 128px;
+	background: url(../images/bg.png) no-repeat 0 0;
+	color: #fff;
+	margin-left: 62px;
+}
+.gh_link:hover {
+	margin-left: 52px;
+}
+.gh_link span {
+	display: block;
+	width: 50px;
+	height: 46px;
+	float: right;
+	background-image: url(../images/bg.png);
+	background-repeat: no-repeat;
+}
+.gh_icon {
+	background-position: 0 -92px;
+}
+.zip_icon {
+	background-position: 0 -138px;
+}
+.tar_icon {
+	background-position: 0 -184px;
+}
+.wk_link {
+	width: 118px;
+	background: url(../images/bg.png) no-repeat 0 -46px;
+	color: #690;
+	margin-left: 72px;
+}
+.wk_link:hover {
+	margin-left: 62px;
+}
+.right {
+	margin-left: 195px;
+	background: url(../images/bg.png) no-repeat -143px 20px;
+	padding-left: 35px;
+}
+.right h1 {
+	font-weight: bold;
+	font-size: 50px;
+}
+.right p {
+	line-height: 40px;
+}
+.right h2 {
+	font-size: 20px;
+}
+.right ul {
+	padding-left: 15px;
+}
+.right li {
+	line-height: 30px;
+}
