@@ -15,21 +15,31 @@ a {
 	width: 850px;
 }
 .left {
+	margin: 0;
+	padding: 0;
+	display: block;
 	width: 195px;
 	float: left;
 	background: url(../images/logo.png) no-repeat top center;
 	padding-top: 120px;
 	overflow: hidden;
 }
+.left li {
+	display: block;
+	width: 195px;
+	height: 46px;
+	margin: 0;
+	padding: 0;
+	margin-top: 10px;
+}
 .left a {
 	display: block;
 	height: 46px;
 	line-height: 46px;
-	margin-top: 10px;
 	font-size: 21px;
 	font-style: italic;
-	padding-left: 15px;
 	text-decoration: none;
+	padding-left: 15px;
 }
 .gh_link {
 	width: 128px;
@@ -44,6 +54,8 @@ a {
 	display: block;
 	width: 50px;
 	height: 46px;
+	overflow: hidden;
+	text-indent: -500px;
 	float: right;
 	background-image: url(../images/bg.png);
 	background-repeat: no-repeat;
@@ -91,4 +103,24 @@ a {
 }
 .right li {
 	line-height: 30px;
+}
+.foot {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+.foot li {
+	display: block;
+	margin: 0;
+	line-height: 20px;
+	float: left;
+	margin-bottom: 20px;
+}
+.copyright {
+	padding: 0;
+	padding-right: 8px;
+}
+.site {
+	padding: 0 8px;
+	border-left: 1px solid #000;
 }
