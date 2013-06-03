@@ -1,11 +1,14 @@
 <?php
 /**
- * PHP Library for weibo.com
+ * 新浪微博 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class sinaPHP
 {
+	public $api_url='https://api.weibo.com/2/';
+	public $format='json';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -44,8 +47,7 @@ class sinaPHP
 	//获取登录用户的uid
 	public function get_uid(){
 		$params=array();
-		$url='https://api.weibo.com/2/account/get_uid.json';
-		return $this->api($url, $params);
+		return $this->api('account/get_uid', $params);
 	}
 
 	//根据uid获取用户信息
@@ -53,39 +55,7 @@ class sinaPHP
 		$params=array(
 			'uid'=>$uid
 		);
-		$url='https://api.weibo.com/2/users/show.json';
-		return $this->api($url, $params);
-	}
-
-	//批量获取指定微博的转发数评论数
-	public function statuses_count($ids){
-		$params=array(
-			'ids'=>$ids
-		);
-		$url='https://api.weibo.com/2/statuses/count.json';
-		return $this->api($url, $params);
-	}
-
-	//获取评论列表
-	public function get_comments_by_sid($id, $count=10, $page=1){
-		$params=array(
-			'id'=>$id,
-			'page'=>$page,
-			'count'=>$count
-		);
-		$url='https://api.weibo.com/2/comments/show.json';
-		return $this->api($url, $params);
-	}
-
-	//根据转发列表
-	public function repost_timeline($id, $count=10, $page=1){
-		$params=array(
-			'id'=>$id,
-			'page'=>$page,
-			'count'=>$count
-		);
-		$url='https://api.weibo.com/2/statuses/repost_timeline.json';
-		return $this->api($url, $params);
+		return $this->api('users/show', $params);
 	}
 
 	//发布微博
@@ -94,10 +64,10 @@ class sinaPHP
 			'status'=>$img_c
 		);
 		if($pic!='' && is_array($pic)){
-			$url='https://api.weibo.com/2/statuses/upload.json';
+			$url='statuses/upload';
 			$params['pic']=$pic;
 		}else{
-			$url='https://api.weibo.com/2/statuses/update.json';
+			$url='statuses/update';
 		}
 		return $this->api($url, $params, 'POST');
 	}
@@ -109,23 +79,16 @@ class sinaPHP
 			'page'=>$page,
 			'count'=>$count
 		);
-		$url='https://api.weibo.com/2/statuses/user_timeline.json';
-		return $this->api($url, $params);
-	}
-
-	//通过id获取mid
-	public function querymid($id, $type=1, $is_batch=0){
-		$params=array(
-			'id'=>$id,
-			'type'=>$type,
-			'is_batch'=>$is_batch
-		);
-		$url='https://api.weibo.com/2/statuses/querymid.json';
-		return $this->api($url, $params);
+		return $this->api('statuses/user_timeline', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：根据uid获取用户信息
+	$result=$sina->api('users/show', array('uid'=>$uid), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url.'.'.$this->format;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -153,12 +116,12 @@ class sinaPHP
 						$body.=$img_c."\r\n";
 					}else{
 						$body.=$str_m."\r\n";
-						$body.='Content-Disposition: form-data; name="'.$k."\"\r\n\r\n";
+						$body.='Content-Disposition: form-data; name="'.$k.'"'."\r\n\r\n";
 						$body.=$v."\r\n";
 					}
 				}
 				$body.=$str_e;
-				$headers[]="Content-Type: multipart/form-data; boundary=".$str_b;
+				$headers[]='Content-Type: multipart/form-data; boundary='.$str_b;
 				$result=$this->http($url, $body, 'POST', $headers);
 			}else{
 				$result=$this->http($url, http_build_query($params), 'POST');
@@ -178,7 +141,7 @@ class sinaPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: sinaPHP(piscdong.com)";
+		$headers[]='User-Agent: weibo.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

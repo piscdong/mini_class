@@ -16,10 +16,16 @@ if($c_log){
 	$ar=getainfo($_SESSION[$config['u_hash']], 'power');
 	$pa=$ar['power'];
 	if($pa==9){
-		$uf='http://www.piscdong.com/mini_class/new_chkversion.php?v='.$v_date;
+		$uf='http://mini_class.piscdong.com/version.html';
 		$c=@file_get_contents($uf);
-		if($c=='')$c='服务器连接失败，请稍后重试';
-		echo $c;
+		if($c==''){
+			$s='服务器连接失败，请稍后重试';
+		}elseif($c==$v_date){
+			$s='当前程序不是最新版本，请<a href="http://mini_class.piscdong.com/">下载</a>最新版本升级';
+		}else{
+			$s='当前程序为最新版本，不需要升级';
+		}
+		echo $s;
 	}
 }
 ?>

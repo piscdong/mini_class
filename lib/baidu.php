@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for baidu.com
+ * 百度 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class baiduPHP
 {
+	public $api_url='https://openapi.baidu.com/rest/2.0/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -53,12 +55,16 @@ class baiduPHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser';
-		return $this->api($url, $params);
+		return $this->api('passport/users/getLoggedInUser', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$facebook->api('passport/users/getLoggedInUser', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -79,7 +85,7 @@ class baiduPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: baiduPHP(piscdong.com)";
+		$headers[]='User-Agent: Baidu.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

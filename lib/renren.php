@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for renren.com
+ * 人人网 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class renrenPHP
 {
+	public $api_url='http://api.renren.com/restserver.do';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -72,38 +74,14 @@ class renrenPHP
 		return $this->api('status.gets', $params, 'POST');
 	}
 
-	//发表一篇日志
-	public function addBlog($title, $content){
-		$params=array(
-			'title'=>$title,
-			'content'=>$content
-		);
-		return $this->api('blog.addBlog', $params, 'POST');
-	}
-
-	//获取日志的全部信息
-	public function getBlog($id, $uid){
-		$params=array(
-			'id'=>$id,
-			'uid'=>$uid
-		);
-		return $this->api('blog.get', $params, 'POST');
-	}
-
-	//获取一篇日志的评论
-	public function getComments($id, $uid, $count=10, $page=1){
-		$params=array(
-			'id'=>$id,
-			'uid'=>$uid,
-			'page'=>$page,
-			'count'=>$count
-		);
-		return $this->api('blog.getComments', $params, 'POST');
-	}
-
 	//调用接口
-	public function api($method_name, $params, $method='GET'){
-		$params['method']=$method_name;
+	/**
+	//示例：获取登录用户信息
+	$result=$renren->api('users.getInfo', array(), 'POST');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url;
+		$params['method']=$url;
 		$params['v']='1.0';
 		$params['access_token']=$this->access_token;
 		$params['format']='json';
@@ -113,7 +91,6 @@ class renrenPHP
 		$sig_str.=$this->client_secret;
 		$sig=md5($sig_str);
 		$params['sig']=$sig;
-		$url='http://api.renren.com/restserver.do';
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
 		}else{
@@ -133,7 +110,7 @@ class renrenPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: renrenPHP(piscdong.com)";
+		$headers[]='User-Agent: Renren.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

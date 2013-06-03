@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for t.qq.com
+ * 腾讯微博 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class tqqPHP
 {
+	public $api_url='https://open.t.qq.com/api/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL, $openid=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -56,8 +58,7 @@ class tqqPHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://open.t.qq.com/api/user/info';
-		return $this->api($url, $params);
+		return $this->api('user/info', $params);
 	}
 
 	//获取登录用户微博列表
@@ -66,30 +67,7 @@ class tqqPHP
 			'pageflag'=>$pageflag,
 			'reqnum'=>$reqnum
 		);
-		$url='https://open.t.qq.com/api/statuses/broadcast_timeline';
-		return $this->api($url, $params);
-	}
-
-	//获取点评转播数量
-	public function getRecount($ids){
-		$params=array(
-			'ids'=>$ids,
-			'flag'=>2
-		);
-		$url='https://open.t.qq.com/api/t/re_count';
-		return $this->api($url, $params);
-	}
-
-	//获取点评、转播
-	public function getReplay($id, $flag=0, $f=0, $n=10){
-		$params=array(
-			'rootid'=>$id,
-			'pageflag'=>$f,
-			'reqnum'=>$n,
-			'flag'=>$flag
-		);
-		$url='https://open.t.qq.com/api/t/re_list';
-		return $this->api($url, $params);
+		return $this->api('statuses/broadcast_timeline', $params);
 	}
 
 	//发布微博
@@ -98,16 +76,21 @@ class tqqPHP
 			'content'=>$img_c
 		);
 		if($pic!='' && is_array($pic)){
-			$url='https://open.t.qq.com/api/t/add_pic';
+			$url='t/add_pic';
 			$params['pic']=$pic;
 		}else{
-			$url='https://open.t.qq.com/api/t/add';
+			$url='t/add';
 		}
 		return $this->api($url, $params, 'POST');
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$tqq->api('user/info', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['oauth_consumer_key']=$this->client_id;
 		$params['access_token']=$this->access_token;
 		$params['openid']=$this->openid;
@@ -141,12 +124,12 @@ class tqqPHP
 						$body.=$img_c."\r\n";
 					}else{
 						$body.=$str_m."\r\n";
-						$body.='Content-Disposition: form-data; name="'.$k."\"\r\n\r\n";
+						$body.='Content-Disposition: form-data; name="'.$k.'"'."\r\n\r\n";
 						$body.=$v."\r\n";
 					}
 				}
 				$body.=$str_e;
-				$headers[]="Content-Type: multipart/form-data; boundary=".$str_b;
+				$headers[]='Content-Type: multipart/form-data; boundary='.$str_b;
 				$result_str=$this->http($url, $body, 'POST', $headers);
 			}else{
 				$result_str=$this->http($url, http_build_query($params), 'POST');
@@ -189,7 +172,7 @@ class tqqPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: tqqPHP(piscdong.com)";
+		$headers[]='User-Agent: tQQ.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

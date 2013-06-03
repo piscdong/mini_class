@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for instagram.com
+ * Instagram API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class instagramPHP
 {
+	public $api_url='https://api.instagram.com/v1/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -44,8 +46,7 @@ class instagramPHP
 	//根据id获取用户信息
 	public function user($id){
 		$params=array();
-		$url='https://api.instagram.com/v1/users/'.$id.'/';
-		return $this->api($url, $params);
+		return $this->api('users/'.$id.'/', $params);
 	}
 
 	//根据id获取用户图片列表
@@ -54,12 +55,16 @@ class instagramPHP
 			'count'=>$count
 		);
 		if($max_id!='')$params['max_id']=$max_id;
-		$url='https://api.instagram.com/v1/users/'.$id.'/media/recent/';
-		return $this->api($url, $params);
+		return $this->api('users/'.$id.'/media/recent/', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：根据id获取用户信息
+	$result=$instagram->api('users/'.$id.'/', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -80,7 +85,7 @@ class instagramPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: instagramPHP(piscdong.com)";
+		$headers[]='User-Agent: Instagram.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

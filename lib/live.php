@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for live.com
+ * live API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class livePHP
 {
+	public $api_url='https://apis.live.net/v5.0/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -51,12 +53,16 @@ class livePHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://apis.live.net/v5.0/me';
-		return $this->api($url, $params);
+		return $this->api('me', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$live->api('me', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -77,7 +83,7 @@ class livePHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: livePHP(piscdong.com)";
+		$headers[]='User-Agent: live.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

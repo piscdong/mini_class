@@ -1,11 +1,14 @@
 <?php
 /**
- * PHP Library for kaixin001.com
+ * 开心网 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class kaixinPHP
 {
+	public $api_url='https://api.kaixin001.com/';
+	public $format='json';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -51,8 +54,7 @@ class kaixinPHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://api.kaixin001.com/users/me.json';
-		return $this->api($url, $params);
+		return $this->api('users/me', $params);
 	}
 
 	//发表记录
@@ -61,8 +63,7 @@ class kaixinPHP
 			'content'=>$content
 		);
 		if($picurl!='')$params['picurl']=$picurl;
-		$url='https://api.kaixin001.com/records/add.json';
-		return $this->api($url, $params, 'POST');
+		return $this->api('records/add', $params, 'POST');
 	}
 
 	//获取登录用户的记录
@@ -71,51 +72,16 @@ class kaixinPHP
 			'start'=>$start,
 			'num'=>$num
 		);
-		$url='https://api.kaixin001.com/records/me.json';
-		return $this->api($url, $params);
-	}
-
-	//获取记录的所有评论
-	public function comment_list($id, $uid, $num=10, $start=0){
-		$params=array(
-			'objtype'=>'records',
-			'objid'=>$id,
-			'ouid'=>$uid,
-			'start'=>$start,
-			'num'=>$num
-		);
-		$url='https://api.kaixin001.com/comment/list.json';
-		return $this->api($url, $params);
-	}
-
-	//获取记录的所有转发
-	public function forward_list($id, $uid, $num=10, $start=0){
-		$params=array(
-			'objtype'=>'records',
-			'objid'=>$id,
-			'ouid'=>$uid,
-			'start'=>$start,
-			'num'=>$num
-		);
-		$url='https://api.kaixin001.com/forward/list.json';
-		return $this->api($url, $params);
-	}
-
-	//获取对记录赞过的用户列表
-	public function like_show($id, $uid, $num=10, $start=0){
-		$params=array(
-			'objtype'=>'records',
-			'objid'=>$id,
-			'ouid'=>$uid,
-			'start'=>$start,
-			'num'=>$num
-		);
-		$url='https://api.kaixin001.com/like/show.json';
-		return $this->api($url, $params);
+		return $this->api('records/me', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$kaixin->api('users/me', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url.'.'.$this->format;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -136,7 +102,7 @@ class kaixinPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: kaixinPHP(piscdong.com)";
+		$headers[]='User-Agent: Kaixin001.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

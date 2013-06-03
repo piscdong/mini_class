@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for qq.com
+ * QQ API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class qqPHP
 {
+	public $api_url='https://graph.qq.com/';
+
 	public function __construct($appid, $appkey, $access_token=NULL){
 		$this->appid=$appid;
 		$this->appkey=$appkey;
@@ -66,8 +68,7 @@ class qqPHP
 		$params=array(
 			'openid'=>$openid
 		);
-		$url='https://graph.qq.com/user/get_user_info';
-		return $this->api($url, $params);
+		return $this->api('user/get_user_info', $params);
 	}
 
 	//发布分享
@@ -81,12 +82,16 @@ class qqPHP
 			'images'=>$images,
 			'summary'=>$summary
 		);
-		$url='https://graph.qq.com/share/add_share';
-		return $this->api($url, $params, 'POST');
+		return $this->api('share/add_share', $params, 'POST');
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：根据openid获取用户信息
+	$result=$qq->api('user/get_user_info', array('openid'=>$openid), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['access_token']=$this->access_token;
 		$params['oauth_consumer_key']=$this->appid;
 		$params['format']='json';
@@ -111,7 +116,7 @@ class qqPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: qqPHP(piscdong.com)";
+		$headers[]='User-Agent: QQ.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

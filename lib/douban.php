@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for douban.com
+ * 豆瓣 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class doubanPHP
 {
+	public $api_url='https://api.douban.com/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -53,8 +55,7 @@ class doubanPHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://api.douban.com/v2/user/~me';
-		return $this->api($url, $params);
+		return $this->api('v2/user/~me', $params);
 	}
 
 	//发布分享
@@ -66,13 +67,17 @@ class doubanPHP
 			'rec_desc'=>$description,
 			'rec_image'=>$pic
 		);
-		$url='https://api.douban.com/shuo/v2/statuses/';
-		return $this->api($url, $params, 'POST');
+		return $this->api('shuo/v2/statuses', $params, 'POST');
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
-		$headers[]="Authorization: Bearer ".$this->access_token;
+	/**
+	//示例：获取登录用户信息
+	$result=$douban->api('v2/user/~me', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
+		$headers[]='Authorization: Bearer '.$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params), '', 'GET', $headers);
 		}else{
@@ -92,7 +97,7 @@ class doubanPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: doubanPHP(piscdong.com)";
+		$headers[]='User-Agent: Douban.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

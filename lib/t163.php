@@ -1,11 +1,14 @@
 <?php
 /**
- * PHP Library for t.163.com
+ * 网易微博 API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class t163PHP
 {
+	public $api_url='https://api.t.163.com/';
+	public $format='json';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -50,8 +53,7 @@ class t163PHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://api.t.163.com/users/show.json';
-		return $this->api($url, $params);
+		return $this->api('users/show', $params);
 	}
 
 	//获取用户微博列表
@@ -60,8 +62,7 @@ class t163PHP
 			'user_id'=>$id,
 			'count'=>$count
 		);
-		$url='https://api.t.163.com/statuses/user_timeline.json';
-		return $this->api($url, $params);
+		return $this->api('statuses/user_timeline', $params);
 	}
 
 	//发布微博
@@ -69,12 +70,16 @@ class t163PHP
 		$params=array(
 			'status'=>$status
 		);
-		$url='https://api.t.163.com/statuses/update.json';
-		return $this->api($url, $params, 'POST');
+		return $this->api('statuses/update', $params, 'POST');
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$t163->api('users/show', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url.'.'.$this->format;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -95,7 +100,7 @@ class t163PHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: t163PHP(piscdong.com)";
+		$headers[]='User-Agent: t163.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

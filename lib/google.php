@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for google.com
+ * Google API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class googlePHP
 {
+	public $api_url='https://www.googleapis.com/oauth2/v1/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -55,13 +57,17 @@ class googlePHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://www.googleapis.com/oauth2/v1/userinfo';
-		return $this->api($url, $params);
+		return $this->api('userinfo', $params);
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
-		$headers[]="Authorization: Bearer ".$this->access_token;
+	/**
+	//示例：获取登录用户信息
+	$result=$google->api('userinfo', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
+		$headers[]='Authorization: Bearer '.$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params), '', 'GET', $headers);
 		}else{
@@ -81,7 +87,7 @@ class googlePHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: google(piscdong.com)";
+		$headers[]='User-Agent: Google.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);

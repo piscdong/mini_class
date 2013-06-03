@@ -1,11 +1,13 @@
 <?php
 /**
- * PHP Library for facebook.com
+ * Facebook API client for PHP
  *
  * @author PiscDong (http://www.piscdong.com/)
  */
 class facebookPHP
 {
+	public $api_url='https://graph.facebook.com/';
+
 	public function __construct($client_id, $client_secret, $access_token=NULL){
 		$this->client_id=$client_id;
 		$this->client_secret=$client_secret;
@@ -45,8 +47,7 @@ class facebookPHP
 	//获取登录用户信息
 	public function me(){
 		$params=array();
-		$url='https://graph.facebook.com/me';
-		return $this->api($url, $params);
+		return $this->api('me', $params);
 	}
 
 	//获取登录用户feed
@@ -55,8 +56,7 @@ class facebookPHP
 			'page'=>$page,
 			'count'=>$count
 		);
-		$url='https://graph.facebook.com/me/feed';
-		return $this->api($url, $params);
+		return $this->api('me/feed', $params);
 	}
 
 	//发布feed
@@ -64,12 +64,16 @@ class facebookPHP
 		$params=array(
 			'message'=>$content
 		);
-		$url='https://graph.facebook.com/me/feed/';
-		return $this->api($url, $params, 'POST');
+		return $this->api('me/feed', $params, 'POST');
 	}
 
 	//调用接口
-	public function api($url, $params, $method='GET'){
+	/**
+	//示例：获取登录用户信息
+	$result=$facebook->api('me', array(), 'GET');
+	**/
+	public function api($url, $params=array(), $method='GET'){
+		$url=$this->api_url.$url;
 		$params['access_token']=$this->access_token;
 		if($method=='GET'){
 			$result=$this->http($url.'?'.http_build_query($params));
@@ -90,7 +94,7 @@ class facebookPHP
 			curl_setopt($ci, CURLOPT_POST, TRUE);
 			if($postfields!='')curl_setopt($ci, CURLOPT_POSTFIELDS, $postfields);
 		}
-		$headers[]="User-Agent: facebookPHP(piscdong.com)";
+		$headers[]='User-Agent: Facebook.PHP(piscdong.com)';
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($ci, CURLOPT_URL, $url);
 		$response=curl_exec($ci);
