@@ -1,10 +1,10 @@
 迷你同学录 升级程序
 -------------
->[迷你同学录](http://mini_class.piscdong.com/)
+[迷你同学录](http://mini_class.piscdong.com/)
 
 1.1.7升级程序
 -------------
->* update121212.php
+>**update121212.php**
 
 >先把此数据库升级程序（update121212.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update121212.php 升级数据库，再用1.1.7主程序替换原有程序。
 
@@ -12,7 +12,7 @@
 
 1.1.6升级程序
 -------------
->* update120601.php
+>**update120601.php**
 
 >先把此数据库升级程序（update120601.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update120601.php 升级数据库，再用1.1.6主程序替换原有程序。
 
@@ -20,7 +20,7 @@
 
 1.1.5升级程序
 -------------
->* update120415.php
+>**update120415.php**
 
 >先把此数据库升级程序（update120415.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update120415.php 升级数据库，再用1.1.5主程序替换原有程序。
 
@@ -28,7 +28,7 @@
 
 1.1.4升级程序
 -------------
->* update120226.php
+>**update120226.php**
 
 >先把此数据库升级程序（update120226.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update120226.php 升级数据库，再用1.1.4主程序替换原有程序。
 
@@ -36,7 +36,7 @@
 
 1.1.3升级程序
 -------------
->* update111231.php
+>**update111231.php**
 
 >先把此数据库升级程序（update111231.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update111231.php 升级数据库，再用1.1.3主程序替换原有程序。
 
@@ -44,7 +44,7 @@
 
 1.1.2升级程序
 -------------
->* update111208.php
+>**update111208.php**
 
 >先把此数据库升级程序（update111208.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update111208.php 升级数据库，再用1.1.2主程序替换原有程序。
 
@@ -52,7 +52,7 @@
 
 1.1.1升级程序
 -------------
->* update110619.php
+>**update110619.php**
 
 >先把此数据库升级程序（update110619.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update110619.php 升级数据库，再用1.1.1主程序替换原有程序。
 
@@ -60,9 +60,9 @@
 
 1.1.0升级程序
 -------------
->* update100901.php
->* update100901_m.php
->* update100901_s.php
+>**update100901.php**  
+>**update100901_m.php**  
+>**update100901_s.php**
 
 >先把此数据库升级程序（update100901.php，update100901_m.php，update100901_s.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update100901.php 按照提示步骤升级数据库，再用1.1.0主程序替换原有程序。
 
@@ -70,7 +70,7 @@
 
 1.0.7升级程序
 -------------
->* update081119.php
+>**update081119.php**
 
 >先把此数据库升级程序（update081119.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update081119.php 升级数据库，再用1.0.7主程序替换原有程序。
 
@@ -78,7 +78,7 @@
 
 1.0.6升级程序
 -------------
->* update080728.php
+>**update080728.php**
 
 >先把此数据库升级程序（update080728.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update080728.php 升级数据库，再用1.0.6主程序替换原有程序。
 
@@ -86,7 +86,7 @@
 
 1.0.5升级程序
 -------------
->* update080701.php
+>**update080701.php**
 
 >先把此数据库升级程序（update080701.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update080701.php 升级数据库，再用1.0.5主程序替换原有程序。
 
@@ -94,7 +94,7 @@
 
 1.0.4升级程序
 -------------
->* update080115.php
+>**update080115.php**
 
 >先把此数据库升级程序（update080115.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update080115.php 升级数据库，再用1.0.4主程序替换原有程序。
 
@@ -102,7 +102,7 @@
 
 1.0.3升级程序
 -------------
->* update071208.php
+>**update071208.php**
 
 >先把此数据库升级程序（update071208.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update071208.php 升级数据库，再用1.0.3主程序替换原有程序。
 
@@ -110,10 +110,10 @@
 
 1.0.2升级程序
 -------------
->* update071125.php
+>**update071125.php**
 
 >先把此数据库升级程序（update071125.php）上传到“setup/”，通过浏览器访问：http://yoururl/setup/update071125.php 升级数据库，再用1.0.2主程序替换原有程序。  
 
 开发者信息
 -------------
->[PiscDong studio](http://www.piscdong.com/)
+[PiscDong studio](http://www.piscdong.com/)

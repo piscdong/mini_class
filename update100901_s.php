@@ -183,4 +183,3 @@ if(!file_exists($lfile)){
 }else{
 	header('Location:../');
 }
-?>
