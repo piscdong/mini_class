@@ -7,4 +7,3 @@
 
 $s_title='牛仔裤';
 $s_file='styles.css';
-?>

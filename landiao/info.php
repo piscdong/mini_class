@@ -7,4 +7,3 @@
 
 $s_title='蓝调';
 $s_file='styles.css';
-?>

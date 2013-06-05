@@ -7,4 +7,3 @@
 
 $s_title='2008';
 $s_file='styles.css';
-?>

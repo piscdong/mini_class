@@ -7,4 +7,3 @@
 
 $s_title='新年';
 $s_file='styles.css';
-?>

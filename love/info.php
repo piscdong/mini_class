@@ -7,4 +7,3 @@
 
 $s_title='情人节';
 $s_file='styles.css';
-?>

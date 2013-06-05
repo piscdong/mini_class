@@ -7,4 +7,3 @@
 
 $s_title='圣诞节';
 $s_file='styles.css';
-?>
