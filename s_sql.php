@@ -103,7 +103,8 @@ if($c_log && $pa==9){
 					}
 					$qt2[]="'".$k."'=>array(\n\t\t".join(",\n\t\t", $qt1)."\n\t)";
 				}
-				$c="<?php\n\$data=array(\n\t".join(",\n\t", $qt2)."\n);\n?>";
+				$c="<?php\n\$data=array(\n\t".join(",\n\t", $qt2)."\n);\n
+";
 				writeText($f,$c);
 			}
 		}
@@ -123,4 +124,3 @@ if($c_log && $pa==9){
 		$content.=((isset($_GET['e']) && isset($a_msg[$_GET['e']]))?'<div class="msg_v">'.$a_msg[$_GET['e']].'</div>':'').'<div class="title">数据库备份</div><div class="lcontent">使用数据库备份功能可以把数据库中的数据备份到文本文件并保存到“setup/”目录中，备份后可以通过ftp下载。<form method="post" action="" class="btform_nv"><div class="formline"><input type="radio" name="file_t" value="0" checked="checked"/>备份为php文件，只可以通过ftp下载</div><div class="formline"><input type="radio" name="file_t" value="1"/>备份为inc文件，备份后可以即时下载</div><div class="formline"><input type="hidden" name="export" value="1"/><input type="submit" value="备份" class="button" /></div></form></div><br/><div class="title">数据库恢复</div><div class="lcontent">使用数据库恢复功能后将会用新的数据替换数据库中原有的数据，原有数据将<strong>不可恢复</strong>，请谨慎使用此功能！<br/><br/><div id="sql_i_0">确定要使用数据库恢复功能？<br/><input type="button" value="确定" name="hs_cbt" data-id="sql_i_0|sql_i_1" class="button" /></div><div id="sql_i_1" style="display: none;">请先把使用数据库备份功能生成的文件上传到“setup/”目录，再使用下面的表单恢复数据。<form method="post" action="" id="drform"><div class="formline">setup/<input name="file" size="32" /></div><div class="formline"><input type="hidden" name="import" value="1"/><input type="submit" value="导入" class="button" /> <input type="button" value="取消" name="hs_cbt" data-id="sql_i_1|sql_i_0" class="button" /></div></form></div></div>';
 	}
 }
-?>

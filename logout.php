@@ -15,4 +15,3 @@ setcookie($config['u_hash'].'_u','',time());
 setcookie($config['u_hash'].'_p','',time());
 header('Location:'.(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'./'));
 exit();
-?>

@@ -47,4 +47,3 @@ function getmthu($r){
 	}
 	return $t;
 }
-?>

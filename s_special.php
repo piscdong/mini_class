@@ -30,11 +30,13 @@ if($c_log && $pa==9){
 			$at_mgc[trim($nmgc)]=trim($nmgc);
 			$mgc_c="<?php";
 			foreach($at_mgc as $v)$mgc_c.="\r\n\$a_mgc[]='".$v."';";
-			$mgc_c.="\r\n//\$a_mgc[]='';\r\n//请自行添加敏感词，一行一个\r\n?>";
+			$mgc_c.="\r\n//\$a_mgc[]='';\r\n//请自行添加敏感词，一行一个\r\n
+";
 			writeText($mgc_file, $mgc_c);
 			$e=2;
 		}elseif(isset($_POST['delmgc']) && $_POST['delmgc']==1){
-			writeText($mgc_file, "<?php\r\n//\$a_mgc[]='';\r\n//请自行添加敏感词，一行一个\r\n?>");
+			writeText($mgc_file, "<?php\r\n//\$a_mgc[]='';\r\n//请自行添加敏感词，一行一个\r\n
+");
 			$e=3;
 		}
 		header('Location:./?m=setting&t=special'.(isset($e)?'&e='.$e:''));
@@ -59,4 +61,3 @@ if($c_log && $pa==9){
 		$content.='<form method="post" action="" class="btform" id="mgcform"><table><tr><td>敏感词：</td><td><input name="mgc" class="bt_input" rel="敏感词" size="30"/></td></tr><tr><td colspan="2"><input type="submit" value="增加" class="button" /></td></tr></table></form></div>';
 	}
 }
-?>

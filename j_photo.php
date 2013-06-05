@@ -36,4 +36,3 @@ if($config['open']==0 || $c_log){
 	}
 	mysql_free_result($q_dbp);
 }
-?>

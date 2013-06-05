@@ -50,4 +50,3 @@ if($config['is_qq']>0 && $config['qq_app_id']!='' && $config['qq_app_key']!=''){
 	}
 }
 header('Location:'.$u);
-?>

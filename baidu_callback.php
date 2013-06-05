@@ -58,4 +58,3 @@ if($config['is_baidu']>0 && $config['baidu_key']!='' && $config['baidu_se']!='')
 	}
 }
 header('Location:'.$u);
-?>

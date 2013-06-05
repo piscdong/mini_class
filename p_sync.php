@@ -1053,4 +1053,3 @@ if($c_log && isset($r_dbu)){
 		$content.='</div>';
 	}
 }
-?>

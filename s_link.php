@@ -71,4 +71,3 @@ if($c_log && $pa==9){
 		$content.=((isset($_GET['e']) && isset($a_msg[$_GET['e']]))?'<div class="msg_v">'.$a_msg[$_GET['e']].'</div>':'').(isset($lp)?'<div class="title">链接管理</div><div class="lcontent" id="linklist"><table>'.join('', $lp).'</table></div><br/>':'').'<div class="title">'.(isset($edb)?'编辑':'添加').'链接</div><div class="lcontent"><form method="post" action="" class="btform" id="linkform"><table><tr><td>标题：</td><td><input name="title" size="32"'.(isset($edb)?' value="'.$edb['title'].'"':'').' class="bt_input" rel="标题" /></td></tr><tr><td>网址：</td><td><input name="url" size="32"'.(isset($edb)?' value="'.$edb['url'].'"':'').' class="bt_input" rel="网址" /></td></tr><tr><td colspan="2"><input type="submit" value="'.(isset($edb)?'编辑':'添加').'" class="button" />'.(isset($edb)?' <input type="button" value="取消" id="link_cbt" class="button" />':'').'</td></tr></table></form></div>';
 	}
 }
-?>

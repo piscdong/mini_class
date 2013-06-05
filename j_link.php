@@ -47,4 +47,3 @@ if($c_log){
 	}
 	mysql_free_result($q_dbl);
 }
-?>

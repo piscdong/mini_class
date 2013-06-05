@@ -58,4 +58,3 @@ if($config['is_t163']>0 && $config['t163_key']!='' && $config['t163_se']!=''){
 	}
 }
 header('Location:'.$u);
-?>

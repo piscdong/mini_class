@@ -27,4 +27,3 @@ if(($config['open']==0 || chklog()) && chkre()){
 	mysql_free_result($q_dbu);
 }
 header('Location:'.$u);
-?>

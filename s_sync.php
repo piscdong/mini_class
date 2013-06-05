@@ -702,4 +702,3 @@ if($c_log && $pa==9){
 		$content.='<div class="formline"><input type="submit" value="修改" class="button" /></div></form></div>';
 	}
 }
-?>

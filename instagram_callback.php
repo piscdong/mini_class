@@ -56,4 +56,3 @@ if($config['is_instagram']>0 && $config['instagram_key']!='' && $config['instagr
 	}
 }
 header('Location:'.$u);
-?>

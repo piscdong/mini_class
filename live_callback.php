@@ -58,4 +58,3 @@ if($config['is_live']>0 && $config['live_key']!='' && $config['live_se']!=''){
 	}
 }
 header('Location:'.$u);
-?>

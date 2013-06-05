@@ -39,4 +39,3 @@ if($c_log && $pa==9){
 	}
 	mysql_free_result($q_dbu);
 }
-?>

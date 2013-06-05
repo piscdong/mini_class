@@ -556,4 +556,3 @@ if($_SERVER['REQUEST_METHOD']=='POST' && $c_log){
 	}
 	$content.='</ul></div>';
 }
-?>

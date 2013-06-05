@@ -60,4 +60,3 @@ if($c_log && $pa==9){
 		$content.='<div class="msg_v" id="skin_msg"'.((isset($_GET['e']) && isset($a_msg[$_GET['e']]))?'>'.$a_msg[$_GET['e']]:' style="display: none;">').'</div>'.(isset($lp)?'<div class="title">样式管理</div><div class="scontent"><ul id="skinlist">'.join('', $lp).'</ul><div class="extr"></div></div><br/>':'').'<div class="title">添加样式</div><div class="lcontent"><form method="post" action="" class="btform" id="skinform"><div class="formline">skin/<input name="path" size="32" class="bt_input" rel="样式路径" />/info.php</div><div class="formline"><input type="submit" value="添加" class="button" /> <input type="reset" value="取消" class="button" /> <a href="http://www.piscdong.com/mini_class/?m=skin" rel="external">下载更多样式</a></div></form></div>';
 	}
 }
-?>

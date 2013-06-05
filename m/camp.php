@@ -182,4 +182,3 @@ if(isset($_GET['id']) && intval($_GET['id'])>0){
 	}
 }
 $content.='</div>';
-?>

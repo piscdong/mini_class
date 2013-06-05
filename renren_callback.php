@@ -63,4 +63,3 @@ if($config['is_renren']>0 && $config['renren_key']!='' && $config['renren_se']!=
 	}
 }
 header('Location:'.$u);
-?>

@@ -30,4 +30,3 @@ if(($config['open']==0 || chklog()) && $config['slink']==0 && chkre()){
 }else{
 	header('Location:images/error.gif');
 }
-?>

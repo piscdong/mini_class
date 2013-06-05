@@ -64,4 +64,3 @@ if($config['is_tw']>0 && $config['tw_key']!='' && $config['tw_se']!=''){
 	}
 }
 header('Location:'.$u);
-?>

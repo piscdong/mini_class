@@ -50,4 +50,3 @@ if($config['is_fb']>0 && $config['fb_app_id']!='' && $config['fb_se']!=''){
 	}
 }
 header('Location:'.$u);
-?>

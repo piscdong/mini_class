@@ -677,4 +677,3 @@ function smail($email, $title, $content){
 		$smtp->sendmail($email, $config['smtp_email'], $title, $content, 'TXT');
 	}
 }
-?>

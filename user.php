@@ -641,4 +641,3 @@ if(isset($_GET['id']) && intval($_GET['id'])>0){
 	mysql_free_result($q_dbu);
 }
 $content.='</div>';
-?>

@@ -288,4 +288,3 @@ if($_SERVER['REQUEST_METHOD']=='POST' && $c_log){
 	}
 	if($c_log && $id==0)$content.='<div class="title">发表留言</div><div class="lcontent"><form method="post" action="" class="btform" id="lyform"><textarea name="rinfo" id="forminfor0" rows="4" style="width: 95%" class="bt_input" rel="内容"></textarea><br/><input type="submit" value="发表留言" /></form></div>';
 }
-?>

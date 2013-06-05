@@ -57,4 +57,3 @@ $app_n='迷你同学录';
 $b_file='config.php';
 $c_file='../'.$b_file;
 $l_file='setup.lock';
-?>

@@ -948,4 +948,3 @@ if(!$c_log){
 	header('Location:./');
 	exit();
 }
-?>

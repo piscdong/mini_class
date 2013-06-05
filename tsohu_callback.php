@@ -64,4 +64,3 @@ if($config['is_tsohu']>0 && ($config['is_utsohu']>0 || ($config['tsohu_key']!=''
 	}
 }
 header('Location:'.$u);
-?>

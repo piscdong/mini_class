@@ -61,4 +61,3 @@ if($c_log && isset($r_dbu) && $config['invnreg']==0){
 		mysql_free_result($q_dbe);
 	}
 }
-?>

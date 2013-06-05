@@ -50,4 +50,3 @@ if($config['is_sina']>0 && $config['sina_key']!='' && $config['sina_se']!=''){
 	}
 }
 header('Location:'.$u);
-?>

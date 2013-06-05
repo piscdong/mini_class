@@ -7,4 +7,3 @@
 
 $s_title='蓝色梦想';
 $s_file='styles.css';
-?>

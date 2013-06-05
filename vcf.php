@@ -26,4 +26,3 @@ if(chklog()){
 	}
 	mysql_free_result($q_dbu);
 }
-?>

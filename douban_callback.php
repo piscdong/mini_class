@@ -58,4 +58,3 @@ if($config['is_douban']>0 && $config['douban_key']!='' && $config['douban_se']!=
 	}
 }
 header('Location:'.$u);
-?>

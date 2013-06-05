@@ -80,4 +80,3 @@ if($c_log && $pa==9){
 	}
 	$content.='</div>';
 }
-?>

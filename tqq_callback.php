@@ -64,4 +64,3 @@ if($config['is_tqq']>0 && ($config['is_utqq']>0 || ($config['tqq_key']!='' && $c
 	}
 }
 header('Location:'.$u);
-?>

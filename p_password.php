@@ -28,4 +28,3 @@ if($c_log && isset($r_dbu)){
 		$content.=((isset($_GET['e']) && isset($a_msg[$_GET['e']]))?'<div class="msg_v">'.$a_msg[$_GET['e']].'</div>':'').'<div class="title">修改密码</div><div class="lcontent"><form method="post" action="" class="btform_p" id="seform"><table><tr><td>当前密码：</td><td><input type="password" name="password0" size="32" class="bt_input" rel="当前密码" /></td></tr><tr><td>新密码：</td><td><input type="password" name="password" id="formpw" size="32" class="bt_input" rel="新密码" /></td></tr><tr><td>确认：</td><td><input type="password" name="password1" id="formpw1" size="32" /></td></tr><tr><td colspan="2"><input type="submit" value="修改" class="button" /></td></tr></table></form></div>';
 	}
 }
-?>

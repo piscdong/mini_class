@@ -124,4 +124,3 @@ if(mysql_num_rows($q_dby)>0){
 	echo '<script type="text/javascript">location.href=\''.$f.'\';</script>';
 }
 mysql_free_result($q_dby);
-?>

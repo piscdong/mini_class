@@ -58,4 +58,3 @@ if($config['is_kx001']>0 && $config['kx001_key']!='' && $config['kx001_se']!='')
 	}
 }
 header('Location:'.$u);
-?>

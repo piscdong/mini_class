@@ -96,4 +96,3 @@ if($c_log && $pa==9){
 	header('Location:./');
 	exit();
 }
-?>

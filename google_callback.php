@@ -58,4 +58,3 @@ if($config['is_google']>0 && $config['google_key']!='' && $config['google_se']!=
 	}
 }
 header('Location:'.$u);
-?>

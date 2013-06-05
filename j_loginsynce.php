@@ -17,4 +17,3 @@ if(isset($_SESSION['login_sync_tn']) && $_SESSION['login_sync_tn']!=''){
 	$_SESSION['login_sync_u']='';
 	$_SESSION['login_sync_edate']=0;
 }
-?>
