@@ -1,6 +1,6 @@
 <?php
 /////////////////////////////////////////////////////////////////////////////
-// 迷你同学录 (http://www.piscdong.com/?m=mini_class)
+// 迷你同学录 (http://mini_class.piscdong.com/)
 //
 // (c)PiscDong studio (http://www.piscdong.com/)
 //
@@ -52,7 +52,7 @@ if(!file_exists($lfile)){
 				<li><a href="../?m=setting&amp;t=sql" target="_blank">备份数据库</a>，通过ftp下载备份好的文件</li>
 				<li style="font-weight: bold;color: #f00;">使用EditPlus等文本工具将备份好的文件另存为utf-8格式，并重命名为“<?php echo $sql_f; ?>”</li>
 				<li>将“<?php echo $sql_f; ?>”上传到“setup/”</li>
-				<li>样式中如果有中文名称，请<a href="http://www.piscdong.com/?m=mini_class&amp;i=skin">下载</a>新的样式文件进行替换</li>
+				<li>样式中如果有中文名称，请<a href="https://github.com/piscdong/mini_class/tree/skin">下载</a>新的样式文件进行替换</li>
 			</ol>
 			完成以上步骤后点击“下一步”，升级过程中有任何问题都可以通过<a href="http://groups.google.com/group/mini_class/">论坛</a>，<a href="mailto:piscdong@gmail.com">Email</a>、QQ（58197283）等方式进行提问。
 			<div class="formline"><input type="submit" value="下一步" id="formsubmit" class="button" /></div>
@@ -60,7 +60,7 @@ if(!file_exists($lfile)){
 	
 <?php
 	}
-	echo '</div></div></div><div id="foot">&copy; '.date('Y').' '.$app_n.'<br/><a href="http://www.piscdong.com/?m=mini_class" rel="external"><img src="../images/powered.gif" alt="Powered by '.$app_n.'"/></a></div></div></body></html>';
+	echo '</div></div></div><div id="foot">&copy; '.date('Y').' '.$app_n.'<br/><a href="http://mini_class.piscdong.com/" rel="external"><img src="../images/powered.gif" alt="Powered by '.$app_n.'"/></a></div></div></body></html>';
 }else{
 	header('Location:../');
 }

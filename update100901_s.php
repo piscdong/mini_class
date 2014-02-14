@@ -1,6 +1,6 @@
 <?php
 /////////////////////////////////////////////////////////////////////////////
-// 迷你同学录 (http://www.piscdong.com/?m=mini_class)
+// 迷你同学录 (http://mini_class.piscdong.com/)
 //
 // (c)PiscDong studio (http://www.piscdong.com/)
 //
@@ -179,7 +179,7 @@ if(!file_exists($lfile)){
 	}else{
 		echo '<script type="text/JavaScript">alert(\''.$sql_f.'不存在\');location.href=\''.$lname.'.php\';</script>';
 	}
-	echo '</div></div></div><div id="foot">&copy; '.date('Y').' '.$app_n.'<br/><a href="http://www.piscdong.com/?m=mini_class" rel="external"><img src="../images/powered.gif" alt="Powered by '.$app_n.'"/></a></div></div></body></html>';
+	echo '</div></div></div><div id="foot">&copy; '.date('Y').' '.$app_n.'<br/><a href="http://mini_class.piscdong.com/" rel="external"><img src="../images/powered.gif" alt="Powered by '.$app_n.'"/></a></div></div></body></html>';
 }else{
 	header('Location:../');
 }

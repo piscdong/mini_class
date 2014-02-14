@@ -1,6 +1,6 @@
 <?php
 /////////////////////////////////////////////////////////////////////////////
-// 迷你同学录 (http://www.piscdong.com/?m=mini_class)
+// 迷你同学录 (http://mini_class.piscdong.com/)
 //
 // (c)PiscDong studio (http://www.piscdong.com/)
 //
