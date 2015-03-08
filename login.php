@@ -39,51 +39,50 @@ if(!$c_log){
 	switch($nct){
 		case 'facebook':
 			require_once('lib/facebook.php');
-				$fb=new facebookPHP($config['fb_app_id'], $config['fb_se'], $_SESSION['facebook_login_u_t']);
-				$fb_me=$fb->me();
-				if(isset($fb_me['id']) && $fb_me['id']!=''){
-					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
-						$goto='m/';
-						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
-					}
-					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($fb_me['id'], 'text'), SQLString($nct, 'text'), $vdb);
-					$q_dbu=mysql_query($s_dbu) or die('');
-					$r_dbu=mysql_fetch_assoc($q_dbu);
-					if(mysql_num_rows($q_dbu)>0){
-						if($r_dbu['s_t']!=$_SESSION['facebook_login_u_t']){
-							$u_db=sprintf('update %s set s_t=%s where id=%s', $dbprefix.'m_sync',
-								SQLString($_SESSION['facebook_login_u_t'], 'text'),
-								$r_dbu['bid']);
-							$result=mysql_query($u_db) or die('');
-						}
-						$u_db=sprintf('update %s set visit=visit+1, visitdate=%s where id=%s', $dbprefix.'member', time(), $r_dbu['id']);
-						$result=mysql_query($u_db) or die('');
-						$_SESSION[$config['u_hash']]=$r_dbu['id'];
-						if($r_dbu['sylorm']=='1'){
-							setcookie($config['u_hash'].'_u', $r_dbu['username'], time()+86400*30);
-							setcookie($config['u_hash'].'_p', $r_dbu['password'], time()+86400*30);
-						}else{
-							setcookie($config['u_hash'].'_u','',time());
-							setcookie($config['u_hash'].'_p','',time());
-						}
-					}else{
-						$goto.='?m=login';
-						$_SESSION['login_sync_tn']=$nct;
-						$_SESSION['login_sync_id']=$fb_me['id'];
-						$_SESSION['login_sync_t']=$_SESSION['facebook_login_u_t'];
-						$_SESSION['login_sync_r']='';
-						$_SESSION['login_sync_s']='';
-						$_SESSION['login_sync_u']='<a href="'.$fb_me['link'].'" target="_blank">'.$fb_me['name'].'</a>';
-						$_SESSION['login_sync_edate']=0;
-					}
-					mysql_free_result($q_dbu);
-					$_SESSION['facebook_login_u_t']='';
-					header('Location:'.$goto);
-					exit();
-				}else{
-					$_SESSION['facebook_login_u_t']='';
+			$fb=new facebookPHP($config['fb_app_id'], $config['fb_se'], $_SESSION['facebook_login_u_t']);
+			$fb_me=$fb->me();
+			if(isset($fb_me['id']) && $fb_me['id']!=''){
+				if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
+					$goto='m/';
+					$_SESSION[$config['u_hash'].'_m']='';
+					unset($_SESSION[$config['u_hash'].'_m']);
 				}
+				$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($fb_me['id'], 'text'), SQLString($nct, 'text'), $vdb);
+				$q_dbu=mysql_query($s_dbu) or die('');
+				$r_dbu=mysql_fetch_assoc($q_dbu);
+				if(mysql_num_rows($q_dbu)>0){
+					if($r_dbu['s_t']!=$_SESSION['facebook_login_u_t']){
+						$u_db=sprintf('update %s set s_t=%s where id=%s', $dbprefix.'m_sync',
+							SQLString($_SESSION['facebook_login_u_t'], 'text'),
+							$r_dbu['bid']);
+						$result=mysql_query($u_db) or die('');
+					}
+					$u_db=sprintf('update %s set visit=visit+1, visitdate=%s where id=%s', $dbprefix.'member', time(), $r_dbu['id']);
+					$result=mysql_query($u_db) or die('');
+					$_SESSION[$config['u_hash']]=$r_dbu['id'];
+					if($r_dbu['sylorm']=='1'){
+						setcookie($config['u_hash'].'_u', $r_dbu['username'], time()+86400*30);
+						setcookie($config['u_hash'].'_p', $r_dbu['password'], time()+86400*30);
+					}else{
+						setcookie($config['u_hash'].'_u','',time());
+						setcookie($config['u_hash'].'_p','',time());
+					}
+				}else{
+					$goto.='?m=login';
+					$_SESSION['login_sync_tn']=$nct;
+					$_SESSION['login_sync_id']=$fb_me['id'];
+					$_SESSION['login_sync_t']=$_SESSION['facebook_login_u_t'];
+					$_SESSION['login_sync_r']='';
+					$_SESSION['login_sync_s']='';
+					$_SESSION['login_sync_u']='<a href="'.$fb_me['link'].'" target="_blank">'.$fb_me['name'].'</a>';
+					$_SESSION['login_sync_edate']=0;
+				}
+				mysql_free_result($q_dbu);
+				$_SESSION['facebook_login_u_t']='';
+				header('Location:'.$goto);
+				exit();
+			}else{
+				$_SESSION['facebook_login_u_t']='';
 			}
 			if(!isset($_SESSION['facebook_login_u_t']) || $_SESSION['facebook_login_u_t']==''){
 				$fb=new facebookPHP($config['fb_app_id'], $config['fb_se']);
@@ -101,7 +100,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($ma['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -163,7 +162,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($ma['data']['openid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -227,7 +226,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($ma['uid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -284,7 +283,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($q_a['openid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -341,7 +340,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($kx_re['uid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -403,7 +402,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($rr_me[0]['uid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -465,7 +464,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($me['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -527,7 +526,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($me['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -589,7 +588,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($me['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -652,7 +651,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($ma['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -721,7 +720,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($me['id'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -783,7 +782,7 @@ if(!$c_log){
 					if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 						$goto='m/';
 						$_SESSION[$config['u_hash'].'_m']='';
-						unset($_SESSION[$config['u_hash'].'_m']);	
+						unset($_SESSION[$config['u_hash'].'_m']);
 					}
 					$s_dbu=sprintf('select a.id, a.username, a.password, a.sylorm, b.s_t, b.id as bid from %s as a, %s as b where a.id=b.aid and b.s_id=%s and b.name=%s%s limit 1', $dbprefix.'member', $dbprefix.'m_sync', SQLString($ba['uid'], 'text'), SQLString($nct, 'text'), $vdb);
 					$q_dbu=mysql_query($s_dbu) or die('');
@@ -839,7 +838,7 @@ if(!$c_log){
 		default:
 			if(isset($_SESSION[$config['u_hash'].'_m']) && $_SESSION[$config['u_hash'].'_m']==1){
 				$_SESSION[$config['u_hash'].'_m']='';
-				unset($_SESSION[$config['u_hash'].'_m']);	
+				unset($_SESSION[$config['u_hash'].'_m']);
 			}
 			if($_SERVER['REQUEST_METHOD']=='POST'){
 				if(isset($_POST['username']) && trim($_POST['username'])!='' && isset($_POST['password']) && trim($_POST['password'])!=''){
