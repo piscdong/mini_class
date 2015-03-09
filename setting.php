@@ -77,8 +77,6 @@ if($c_log && $pa==9){
 			header('Location:./?m=setting'.(isset($e)?'&e=1':''));
 			exit();
 		}else{
-			require_once('lib/smtp.php');
-			smail('piscdong@gmail.com', '['.$config['title'].']您的注册已通过审核', time().'abcd');
 			$a_msg=array(1=>'设置已修改。');
 			$content.=((isset($_GET['e']) && isset($a_msg[$_GET['e']]))?'<div class="msg_v">'.$a_msg[$_GET['e']].'</div>':'').'<div class="title">班级设置</div><div class="lcontent"><form method="post" action="" class="btform" id="stform"><table><tr><td>标题：</td><td><input name="title" size="32" value="'.$config['title'].'" class="bt_input" rel="标题" /></td></tr><tr><td>学校：</td><td><input name="school" size="32" value="'.$config['school'].'" /></td></tr><tr><td>班级：</td><td><input name="classname" size="32" value="'.$config['classname'].'" /></td></tr><tr><td>开放访问：</td><td><input name="open" type="radio" value="0"'.($config['open']==0?' checked="checked"':'').' />是 <input name="open" type="radio" value="1"'.($config['open']==1?' checked="checked"':'').' />否</td></tr><tr><td>开放注册：</td><td><input name="openreg" type="radio" value="0"'.($config['openreg']==0?' checked="checked"':'').' />是 <input name="openreg" type="radio" value="1"'.($config['openreg']==1?' checked="checked"':'').' />否</td></tr><tr><td>邀请注册：</td><td><input name="invreg" type="radio" value="0"'.($config['invreg']==0?' checked="checked"':'').' />是 <input name="invreg" type="radio" value="1"'.($config['invreg']==1?' checked="checked"':'').' />否</td></tr>';
 			if(isset($g_a) && count($g_a)>0){
