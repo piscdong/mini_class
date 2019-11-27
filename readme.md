@@ -1,4 +1,4 @@
-迷你同学录 1.1.7 (150309) beta
+迷你同学录 1.1.7 (171127) beta
 -------------
 [迷你同学录](http://mini_class.piscdong.com/)  
 “迷你同学录”是一款基于PHP、MySQL的单班级同学录程序。  
@@ -23,6 +23,11 @@
 
 升级历史
 -------------
+>2017-11-27
+>* 1.1.7 (171127)
+>* 修正程序错误（感谢网友[KaikePing](https://github.com/KaikePing)）
+>* 升级方法：替换reg.php、p_invite.php、version.php
+
 >2015-03-09
 >* 1.1.7 (150309)
 >* 修正程序错误
@@ -75,4 +80,4 @@
 开发者信息
 -------------
 [PiscDong studio](http://www.piscdong.com/)  
-2015-03-09
+2017-11-27

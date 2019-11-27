@@ -8,7 +8,7 @@
  */
 
 if(!$c_log){
-	if($config['invnreg']==0 && isset($_GET['c']) && trim($_GET['c'])!=''){
+	if($config['invreg']==0 && isset($_GET['c']) && trim($_GET['c'])!=''){
 		$code=htmlspecialchars(trim($_GET['c']),ENT_QUOTES);
 		$s_dbi=sprintf('select a.id, a.aid, a.code, b.name from %s as a, %s as b where a.code=%s and a.jid=0 and a.aid=b.id limit 1', $dbprefix.'invite', $dbprefix.'member', SQLString($code, 'text'));
 		$q_dbi=mysql_query($s_dbi) or die('');

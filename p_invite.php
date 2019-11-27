@@ -7,7 +7,7 @@
  * 请勿出售本程序或其修改版，请勿利用本程序或其修改版进行任何商业活动。
  */
 
-if($c_log && isset($r_dbu) && $config['invnreg']==0){
+if($c_log && isset($r_dbu) && $config['invreg']==0){
 	$title.='邀请朋友';
 	if($_SERVER['REQUEST_METHOD']=='POST'){
 		if(isset($_POST['invite_link']) && $_POST['invite_link']==1){
